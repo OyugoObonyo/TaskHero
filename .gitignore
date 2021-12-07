@@ -1,2 +1,3 @@
 TaskHero/*
 *.pyc
+migrations/*
