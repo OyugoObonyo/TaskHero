@@ -1,4 +1,5 @@
 TaskHero/*
 *.pyc
-migrations/*
 TODO
+*.db
+*.db-journal
