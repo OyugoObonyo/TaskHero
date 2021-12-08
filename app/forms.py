@@ -23,7 +23,7 @@ class RegistrationForm(FlaskForm):
     password2 = PasswordField('Repeat password', validators=[DataRequired(), EqualTo('password1')])
     submit = SubmitField('Sign up')
 
-    def validate_username(self):
+    def validate_username(self, username):
         """
         Method checks whether a username already exists in the database
         """
@@ -31,7 +31,7 @@ class RegistrationForm(FlaskForm):
         if user is not None:
             raise ValidationError('Please use a different username.')
 
-    def validate_email(self):
+    def validate_email(self, email):
         """
         Method checks whether a similar email has already been used to register a different user
         """
