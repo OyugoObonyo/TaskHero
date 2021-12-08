@@ -1,6 +1,8 @@
 from app import db
+from werkzeug.security import generate_password_hash, check_password_hash
+from flask_login import UserMixin
 
-class User(db.Model):
+class User(UserMixin, db.Model):
     """
     A class representing users of the application
     """
@@ -8,6 +10,18 @@ class User(db.Model):
     username = db.Column(db.String(32), index=True, unique=True) 
     email= db.Column(db.String(40), index=True, unique=True)
     password_hash = db.Column(db.String(50))
+    
+    def set_password(self):
+        """
+        Create a hash for user's password
+        """
+        self.password_hash = generate_password_hash(password)
+    
+    def check_password(self):
+        """
+        Confirm that the password hash is a match
+        """
+        return check_password_hash(self.password_hash, password)
 
     def __repr__(self):
         return "User = {} ".format(self.username)
