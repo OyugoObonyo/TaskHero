@@ -1,13 +1,20 @@
 from app import app, db
 from flask import render_template, redirect, flash, url_for
-from app.forms import LoginForm, RegistrationForm
-from app.models import User
+from app.forms import LoginForm, RegistrationForm, TaskForm
+from app.models import Task, User
 from flask_login import current_user, login_user, logout_user
 
-@app.route('/')
-@app.route('/index')
+@app.route('/', methods=['GET', 'POST'])
+@app.route('/index', methods=['GET', 'POST'])
 def index():
-    return render_template('/index.html', title = 'TaskHero')
+    form = TaskForm()
+    if form.validate_on_submit():
+        task = Task(body=form.task.data)
+        db.session.add(task)
+        db.session.commit()
+        flash('Task added!')
+        return redirect(url_for('index'))
+    return render_template('/index.html', title = 'TaskHero', form=form)
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
