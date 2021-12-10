@@ -39,3 +39,10 @@ class RegistrationForm(FlaskForm):
         if user is not None:
             raise ValidationError('An account with a similar email address already exists.')
 
+
+class TaskForm(FlaskForm):
+    """
+    Form for filling in tasks by users
+    """
+    task = StringField(validators=[DataRequired()])
+    submit = SubmitField('Create Task')
