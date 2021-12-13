@@ -11,7 +11,7 @@ class User(UserMixin, db.Model):
     username = db.Column(db.String(32), index=True, unique=True) 
     email= db.Column(db.String(40), index=True, unique=True)
     password_hash = db.Column(db.String(50))
-    tasks = db.relationship("Task", backref="owner", lazy="dynamic")
+    tasks = db.relationship('Task', backref='author', lazy=True)
     
     def set_password(self, password):
         """
@@ -26,19 +26,19 @@ class User(UserMixin, db.Model):
         return check_password_hash(self.password_hash, password)
 
     def __repr__(self):
-        return "User = {} ".format(self.username)
+        return "{}: {} ".format(self.id, self.username)
 
 
 class Task(db.Model):
     """
     Tasks model
     """
-    id = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.Integer, index=True, primary_key=True)
     body = db.Column(db.String(120))
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 
     def __repr__(self):
-        return "Task = {}".format(self.body)
+        return "{}: {}".format(self.id, self.body)
 
 
 @login.user_loader
