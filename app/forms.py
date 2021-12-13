@@ -46,3 +46,11 @@ class TaskForm(FlaskForm):
     """
     task = StringField(validators=[DataRequired()])
     submit = SubmitField('Create Task')
+
+
+class UpdateForm(FlaskForm):
+    """
+    Form for filling in tasks by users
+    """
+    task = StringField(validators=[DataRequired()])
+    submit = SubmitField('Update Task')
