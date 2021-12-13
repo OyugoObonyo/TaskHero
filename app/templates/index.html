@@ -13,4 +13,9 @@
     </p>
     <p>{{ form.submit() }}</p>
     </form>
+    {% for task in tasks %}
+    <h1>{{ task.body }}</h1>
+    <a href="/update/{{task.id}}">Update task</a>
+    <a href="/delete/{{task.id}}">Delete task</a>
+    {% endfor %}
 {% endblock %}
