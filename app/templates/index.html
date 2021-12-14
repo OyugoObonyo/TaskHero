@@ -1,21 +1,15 @@
 {% extends "base.html" %}
+{% import 'bootstrap/wtf.html' as wtf %}
 
-{% block content %}
+{% block app_content %}
 <h1> Hello {{ current_user.username }} </h1>
-<form action="" method="post">
-    {{ form.hidden_tag() }}
-    <p>
-        {{ form.task.label }}<br>
-        {{ form.task(cols=32, rows=4) }}<br>
-        {% for error in form.task.errors %}
-        <span style="color: red;">[{{ error }}]</span>
-        {% endfor %}
-    </p>
-    <p>{{ form.submit() }}</p>
-    </form>
-    {% for task in tasks %}
+{% if form %}
+{{ wtf.quick_form(form) }}
+<br>
+{% endif %}
+{% for task in tasks %}
     <h1>{{ task.body }}</h1>
     <a href="/update/{{task.id}}">Update task</a>
     <a href="/delete/{{task.id}}">Delete task</a>
-    {% endfor %}
+{% endfor %}
 {% endblock %}

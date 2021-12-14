@@ -1,29 +1,29 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        {% if title %}
-        <title> {{ title }} </title>
-        {% else %}
-        <title> TaskHero</title>
-        {% endif %}
-    </head>
-    <body>
+{% extends 'bootstrap/base.html' %}
+
+{% block title %}
+    {% if title %}{{ title }}{% else %}TaskHero{% endif %}
+{% endblock %} 
+ 
+{% block navbar %}
+    <nav class="navbar navbar-default">
         <div><a href="{{ url_for('index') }}">Home</a></div>
         {% if current_user.is_anonymous %}
         <div><a href="{{ url_for('login') }}">Log In</a></div>
         {% else %}
         <div><a href="{{ url_for('logout') }}">Log out</a></div>
         {% endif %}
-        <hr>
+    </nav>
+{% endblock %}
+
+{% block content %}
+    <div class="container">
         {% with messages = get_flashed_messages() %}
         {% if messages %}
-        <ul>
             {% for message in messages %}
-            <li>{{ message }}</li>
+            <div class="alert alert-info" role="alert">{{ message }}</div>
             {% endfor %}
-        </ul>
         {% endif %}
         {% endwith %}
-        {% block content %}{% endblock %}
-    </body>
-</html>
+        {% block app_content %}{% endblock %}
+    </div>
+{% endblock %}
