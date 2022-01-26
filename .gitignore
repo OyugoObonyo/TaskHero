@@ -3,3 +3,5 @@ TaskHero/*
 TODO
 *.db
 *.db-journal
+logs/TaskHero.log
+.coverage
