@@ -10,7 +10,7 @@ class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(32), index=True, unique=True) 
     email= db.Column(db.String(40), index=True, unique=True)
-    password_hash = db.Column(db.String(50))
+    password_hash = db.Column(db.String(200))
     tasks = db.relationship('Task', backref='author', lazy=True)
     
     def set_password(self, password):
