@@ -1,9 +1,11 @@
 from flask_login.utils import login_required
 from app import app, db
-from flask import render_template, redirect, flash, url_for
+from flask import render_template, redirect, flash, url_for, request
 from app.forms import LoginForm, RegistrationForm, TaskForm, UpdateForm
 from app.models import Task, User
 from flask_login import current_user, login_user, logout_user
+from werkzeug.urls import url_parse
+
 
 @app.route('/', methods=['GET', 'POST'])
 @app.route('/index', methods=['GET', 'POST'])
@@ -30,6 +32,9 @@ def login():
             flash('Invalid username or password')
             return redirect(url_for('login'))
         login_user(user, remember=form.remember_me.data)
+        next_page = request.args.get('next')
+        if not next_page or url_parse(next_page).netloc != "":
+            next_page = url_for('main.index')
         return redirect(url_for('index'))
     return render_template('login.html', title = 'Sign In', form = form)
 
