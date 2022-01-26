@@ -30,6 +30,17 @@ class UserModelCase(unittest.TestCase):
         self.assertTrue(u.check_password('Bruno'))
         self.assertFalse(u.check_password('NotBruno'))
 
+# Implement system testing concept learnt today
+class AppTestCase(unittest.TestCase):
+    """
+    System test for our core app routes
+    """
+    def test_index(self):
+        with app.test_client() as c:
+            response = c.get('/')
+
+            self.assertEqual(response.status_code, 302)
+
 
 if __name__ == "__main__":
     unittest.main(verbosity=2)
