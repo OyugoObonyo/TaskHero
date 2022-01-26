@@ -34,7 +34,7 @@ def login():
         login_user(user, remember=form.remember_me.data)
         next_page = request.args.get('next')
         if not next_page or url_parse(next_page).netloc != "":
-            next_page = url_for('main.index')
+            next_page = url_for('index')
         return redirect(url_for('index'))
     return render_template('login.html', title = 'Sign In', form = form)
 
